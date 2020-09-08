@@ -1,19 +1,23 @@
 function getdogPics(){
  
-    let ajax = new XMLHttpRequest();
-    ajax.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200) {
-          let dogPics  = JSON.parse (this.responseText);
-         document.getElementById("dogImg").innerHTML = dogPics.quote;} 
-        else if(this.readyState !=4) {
-            document.getElementById("dogImg").innerHTML = dogPics.quote;
-        } 
-        else {
-            document.getElementById("dogImg").innerHTML = Error;
-        }
-    };
-    ajax.open("GET", "http://shibe.online/api/shibes?count=[1-100]&urls=[true/false]&httpsUrls=[true/false]", true);
-    ajax.send();
-    }
-    
-   
+  let ajax = new XMLHttpRequest();
+  ajax.onreadystatechange = function() {
+      if(this.readyState == 4 && this.status == 200) {
+        let getdogPicsImg =JSON.parse(this.responseText);
+        console.log (getdogPicsImg)
+        document.getElementById("getdogPics-img").setAttribute("src", getdogPicsImg.url);
+      } else if(this.readyState != 4) {
+            document.getElementById("getdogPics-img").innerHTML = "LOADING";
+           }  else {
+             document.getElementById("getdogPics-img").innerHTML = "ERROR"
+           }
+
+  
+  }    
+  ajax.open("GET", "https://random.dog/woof.json", true);
+  ajax.send();
+  
+}
+
+let getdogPicsButton = document.getElementById("getdogPics-button");
+getdogPicsButton.addEventListener("click", getdogPics);
